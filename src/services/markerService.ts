@@ -23,9 +23,7 @@ export const getMarkers = async (): Promise<Marker[]> => {
   );
 };
 
-export const addMarker = async (
-  marker: Omit<Marker, "id">,
-): Promise<void> => {
+export const addMarker = async (marker: Omit<Marker, "id">): Promise<void> => {
   await addDoc(markersCollection, marker);
 };
 
