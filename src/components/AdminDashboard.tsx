@@ -12,6 +12,7 @@ import {
 import { getUserProfile } from "../services/authService";
 import type { Marker, UserProfile } from "../types";
 import Map from "./Map";
+import UserManagement from "./UserManagement";
 
 const AdminDashboard = () => {
   const [markers, setMarkers] = useState<Marker[]>([]);
@@ -437,6 +438,8 @@ const AdminDashboard = () => {
           <Map markers={markers} userLocation={liveLocation} />
         </Card.Body>
       </Card>
+
+      {userProfile?.role === "admin" && <UserManagement />}
     </Container>
   );
 };

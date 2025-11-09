@@ -28,7 +28,7 @@ export const checkUserRole = async (user: User): Promise<boolean> => {
     console.log("User profile from Firestore:", userProfile);
     const role = userProfile.role || "";
     console.log("User role:", role);
-    return role === "admin" || role === "events-admin";
+    return role === "admin" || role === "events-admin" || role === "mirage-admin";
   }
   console.log("User document not found in Firestore for UID:", user.uid);
   return false;
