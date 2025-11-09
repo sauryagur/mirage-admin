@@ -84,7 +84,7 @@ const AdminDashboard = () => {
       }
 
       if (!within50m) {
-        if (closestMarkerDistance >= 100) {
+        if (closestMarkerDistance >= 60) {
           setLocationStatus("READY");
         } else {
           setLocationStatus(
@@ -126,9 +126,9 @@ const AdminDashboard = () => {
               longitude: marker.location.longitude,
             },
           );
-          if (distance < 100) {
+          if (distance < 60) {
             setError(
-              "New marker is too close to an existing one (less than 100m)",
+              "New marker is too close to an existing one (less than 60m)",
             );
             return;
           }
