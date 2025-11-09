@@ -7,6 +7,7 @@
         "@types/leaflet": "^1.9.21",
         "bootstrap": "^5.3.8",
         "firebase": "^12.5.0",
+        "geofire-common": "^6.0.0",
         "leaflet": "^1.9.4",
         "react": "^19.1.1",
         "react-bootstrap": "^2.10.10",
@@ -497,6 +498,8 @@
     "fsevents": ["fsevents@2.3.3", "", { "os": "darwin" }, "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="],
 
     "gensync": ["gensync@1.0.0-beta.2", "", {}, "sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg=="],
+
+    "geofire-common": ["geofire-common@6.0.0", "", {}, "sha512-dQ2qKWMtHUEKT41Kw4dmAtMjvEyhWv1XPnHHlK5p5l5+0CgwHYQjhonGE2QcPP60cBYijbJ/XloeKDMU4snUQg=="],
 
     "get-caller-file": ["get-caller-file@2.0.5", "", {}, "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="],
 

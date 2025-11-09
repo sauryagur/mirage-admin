@@ -1,5 +1,5 @@
 // src/types.ts
-import { GeoPoint } from "firebase/firestore";
+import { GeoPoint, Timestamp } from "firebase/firestore";
 
 export interface Marker {
   id: string;
@@ -9,13 +9,16 @@ export interface Marker {
   answer: string;
   hint?: string;
   points: number;
+  geohash: string;
+  createdAt: Timestamp;
+  createdBy: string;
 }
 
 export interface UserProfile {
   uid: string;
   displayName: string;
   email: string;
-  role: "admin" | "player" | "events-admin";
+  role: "admin" | "player" | "events-admin" | "mirage-admin";
   teamId?: string;
   score: number;
 }

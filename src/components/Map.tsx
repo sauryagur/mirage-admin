@@ -20,7 +20,8 @@ L.Icon.Default.mergeOptions({
 
 const userLocationIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
   shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -35,10 +36,9 @@ interface MapProps {
 }
 
 const Map = ({ markers, userLocation }: MapProps) => {
-  const position: [number, number] =
-    userLocation
-      ? [userLocation.latitude, userLocation.longitude]
-      : markers.length > 0
+  const position: [number, number] = userLocation
+    ? [userLocation.latitude, userLocation.longitude]
+    : markers.length > 0
       ? [markers[0].location.latitude, markers[0].location.longitude]
       : [30.35499042305075, 76.36601205473525]; // Default position if no markers
 

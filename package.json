@@ -13,6 +13,7 @@
     "@types/leaflet": "^1.9.21",
     "bootstrap": "^5.3.8",
     "firebase": "^12.5.0",
+    "geofire-common": "^6.0.0",
     "leaflet": "^1.9.4",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",

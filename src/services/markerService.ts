@@ -3,7 +3,6 @@ import {
   collection,
   getDocs,
   addDoc,
-  GeoPoint,
   doc,
   updateDoc,
   deleteDoc,
@@ -24,14 +23,9 @@ export const getMarkers = async (): Promise<Marker[]> => {
   );
 };
 
-export const addMarker = async (marker: {
-  location: GeoPoint;
-  question: string;
-  answer: string;
-  points: number;
-  title: string;
-  hint?: string;
-}) => {
+export const addMarker = async (
+  marker: Omit<Marker, "id">,
+): Promise<void> => {
   await addDoc(markersCollection, marker);
 };
 
