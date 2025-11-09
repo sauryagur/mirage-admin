@@ -58,8 +58,9 @@ const AdminDashboard = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setLiveLocation({ latitude, longitude });
-      const hash = geohashForLocation([latitude, longitude]);
+      const hash = geohashForLocation([latitude, longitude], 12);
       setGeohash(hash);
+
 
       let closestMarkerDistance = Infinity;
       let within50m = false;
@@ -110,7 +111,7 @@ const AdminDashboard = () => {
       async (position) => {
         const { latitude, longitude } = position.coords;
         const newLocation = new GeoPoint(latitude, longitude);
-        const hash = geohashForLocation([latitude, longitude]);
+        const hash = geohashForLocation([latitude, longitude], 12);
         setGeohash(hash);
 
         // Distance check
