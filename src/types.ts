@@ -24,8 +24,53 @@ export interface UserProfile {
 }
 
 export interface Team {
-  id: string;
-  name: string;
-  members: string[]; // array of user uids
-  score: number;
+  createdAt: string;
+  eventId: string;
+  eventName: string;
+  eventType: string;
+  inviteCode: string;
+  leaderUserId: string;
+  members: {
+    collegeName: string;
+    email: string;
+    name: string;
+    phoneNumber: string;
+    rollNumber: string;
+    userId: string;
+  }[];
+  status: string;
+  teamId: string;
+  teamName: string;
+  points: number;
+  answered_questions: {
+    answer: string;
+    createdAt: string;
+    createdBy: string;
+    geohash: string;
+    hint: string;
+    location: string;
+    points: number;
+    question: string;
+    title: string;
+  }[];
+}
+
+export interface Registration {
+  checkingStatus: string;
+  eventCategory: string;
+  eventId: string;
+  eventName: string;
+  eventType: string;
+  paymentDetails: null;
+  registeredAt: string;
+  teamId: string;
+  teamInviteCode: string;
+  user: {
+    collegeName: string;
+    email: string;
+    name: string;
+    phoneNumber: string;
+    rollNumber: string;
+    userId: string;
+  };
 }

@@ -20,7 +20,7 @@ const UserManagement = () => {
       } catch (error) {
         setError("Failed to fetch users.");
       }
-    };
+    };  
 
     fetchUsers();
   }, []);
