@@ -61,7 +61,6 @@ const AdminDashboard = () => {
       const hash = geohashForLocation([latitude, longitude], 12);
       setGeohash(hash);
 
-
       let closestMarkerDistance = Infinity;
       let within50m = false;
       for (const marker of markers) {

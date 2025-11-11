@@ -13,4 +13,3 @@ export const getTeams = async (): Promise<Team[]> => {
       }) as Team,
   );
 };
-
