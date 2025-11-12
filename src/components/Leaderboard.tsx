@@ -115,13 +115,6 @@ const Leaderboard = () => {
     </Tooltip>
   );
 
-  /* --------------------- “you” row --------------------- */
-  const currentUserHandle = "sauryagur";
-  const isCurrentUserTeam = (team: Team) =>
-    team.members.some(
-      (m) => m.handle?.toLowerCase() === currentUserHandle.toLowerCase(),
-    );
-
   return (
     <>
       <link
@@ -158,16 +151,14 @@ const Leaderboard = () => {
             <tbody>
               {currentTeams.map((team, idx) => {
                 const globalRank = indexOfFirst + idx + 1;
-                const isYou = isCurrentUserTeam(team);
+
                 return (
                   <tr
                     key={team.teamId}
                     className={
                       globalRank <= 3
                         ? `rank-${globalRank}`
-                        : isYou
-                          ? "you-row"
-                          : ""
+                        : ""
                     }
                   >
                     <td>{globalRank}</td>
