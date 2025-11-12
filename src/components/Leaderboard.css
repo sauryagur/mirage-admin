@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  Minimal, clean look – no yellow, no heavy borders                */
+/*  Minimal, clean look – no yellow, no heavy borders                 */
 /* ------------------------------------------------------------------ */
 
 :root {
@@ -8,6 +8,16 @@
   --border: #cccccc;
   --shadow: rgba(0, 0, 0, 0.08);
   --highlight-you: #fff8e1;
+
+  /* Podium Colors */
+  --gold: linear-gradient(145deg, #ffd700 0%, #a88a00 100%);
+  --silver: linear-gradient(145deg, #e0e0e0 0%, #909090 100%);
+  --bronze: linear-gradient(145deg, #cd7f32 0%, #8b4513 100%);
+  --gold-text: #664d03; /* Dark text for gold background */
+  --silver-text: #2c3e50; /* Dark text for silver background */
+  --bronze-text: #2c3e50; /* Dark text for bronze background */
+  --shadow-inset: inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  --shadow-base: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* ---- Page container ------------------------------------------------ */
@@ -36,46 +46,119 @@
   opacity: 0.8;
 }
 
-/* ---- Podium -------------------------------------------------------- */
+/* ---- Podium (Updated to Grid) -------------------------------------- */
 .podium-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 180px;
-  margin: 2rem 0 3rem;
-  gap: 1rem;
+  display: grid;
+  /* 3 columns of equal size, 3 rows for the steps */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 0; /* No gaps between grid items */
+  margin: 2rem auto 3rem;
+  max-width: 600px; /* Limit width for visual appeal */
+  text-align: center; /* Center all text in grid cells */
 }
-.podium-item {
-  flex: 1;
+
+/* Base class for a single podium step in the grid */
+.podium-step {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: flex-end; /* Push content to the bottom of the step */
+  min-height: 4rem; /* Base height for all steps */
+  padding: 0.5rem 0.5rem 1rem; /* Padding top for avatar space, heavy bottom for looks */
   position: relative;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-base);
+}
+
+/* 1st Place - Gold */
+.podium-step.rank-1 {
+  /* Top row, center column, Spans all 3 rows */
+  grid-area: 1 / 2 / 4 / 3;
+  background: var(--gold);
+  color: var(--gold-text);
+  box-shadow: var(--shadow-base), var(--shadow-inset);
+  border-radius: 12px 12px 0 0;
+  z-index: 3; /* Highest layer */
+  /* Adjust margin to slightly overlap cells below */
+  margin-bottom: -4px;
+}
+/* 2nd Place - Silver */
+.podium-step.rank-2 {
+  /* Starts at row 2, column 1, spans 2 rows */
+  grid-area: 2 / 1 / 4 / 2;
+  background: var(--silver);
+  color: var(--silver-text);
+  box-shadow: var(--shadow-base), var(--shadow-inset);
+  border-radius: 12px 12px 0 0;
+  z-index: 2; /* Middle layer */
+  margin-bottom: -4px;
+}
+/* 3rd Place - Bronze */
+.podium-step.rank-3 {
+  /* Starts at row 2, column 3, spans 2 rows */
+  grid-area: 2 / 3 / 4 / 4;
+  background: var(--bronze);
+  color: var(--bronze-text);
+  box-shadow: var(--shadow-base), var(--shadow-inset);
+  border-radius: 12px 12px 0 0;
+  z-index: 2; /* Middle layer */
+  margin-bottom: -4px;
+}
+
+/* Empty filler cells to complete the 3x3 grid */
+.podium-step.filler {
+  background: transparent;
+  box-shadow: none;
+  min-height: 1px;
+  z-index: 1; /* Lowest layer */
+}
+
+/* Podium content alignment */
+.podium-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: auto;
+  width: 100%;
+  padding-top: 2rem;
+  gap: 0.3rem;
+}
+
+/* Specific item overrides */
+.podium-item {
+  /* Class from the original component, now acts as podium-step */
+  /* Remove old flex properties that conflict with grid placement */
+  flex: unset;
+  height: unset !important; /* Overwrite inline height */
+  padding-top: unset;
 }
 .podium-bar {
-  width: 100%;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 4px var(--shadow);
+  /* Hides the original bar element */
+  display: none !important;
 }
-.podium-label {
-  position: absolute;
-  bottom: -2.2rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.55rem;
-  line-height: 1.2;
+.podium-avatar {
+  margin-bottom: 0.5rem;
 }
+
+/* Text styling for content */
 .podium-rank {
+  font-size: 1.5rem;
   font-weight: bold;
+  line-height: 1;
+  margin: 0;
 }
 .podium-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.6rem;
+  margin-top: 0.2rem;
+  white-space: normal;
+  word-break: break-word;
 }
 .podium-points {
-  margin-top: 0.2rem;
+  font-size: 0.6rem;
+  margin-top: 0.1rem;
+  opacity: 0.9;
 }
 
 /* ---- Table ---------------------------------------------------------- */
@@ -107,7 +190,7 @@
 /* top-3 row colours (very subtle) */
 .rank-1 {
   background: #f0f0f0 !important;
-}
+} /* Re-using rank-1,2,3 for table rows */
 .rank-2 {
   background: #f8f8f8 !important;
 }

@@ -15,22 +15,58 @@ import "./Leaderboard.css";
 /* ------------------------------------------------------------------- */
 /* 1. Podium sub-component – now minimal                           */
 /* ------------------------------------------------------------------- */
-interface PodiumItemProps {
-  team: Team;
-  rank: number;
-}
-const PodiumItem = ({ team, rank }: PodiumItemProps) => {
-  const heightPct = rank === 1 ? 100 : rank === 2 ? 75 : 50; // step heights
-  const bg = rank === 1 ? "#e0e0e0" : rank === 2 ? "#f0f0f0" : "#fafafa";
 
-  return (
-    <div className="podium-item" style={{ height: `${heightPct}%` }}>
-      <div className="podium-bar" style={{ backgroundColor: bg }} />
-      <div className="podium-label">
+// A generic component to display team data on a podium step
+const PodiumStep = ({
+  team,
+  rank,
+  className,
+}: {
+  team: Partial<Team>;
+  rank: number;
+  className: string;
+}) => (
+  <div className={`podium-step ${className}`}>
+    {team.teamId && (
+      <div className="podium-content">
+        <img
+          src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${team.teamId}`}
+          alt="Team Avatar"
+          className="podium-avatar"
+          height={64}
+        />
         <div className="podium-rank">{rank}</div>
         <div className="podium-name">{team.teamName}</div>
-        <div className="podium-points">{team.points.toFixed(2)}</div>
+        <div className="podium-points">
+          {team.points?.toFixed(2) ?? "0.00"}
+        </div>
       </div>
+    )}
+    {/* podium-bar is hidden in CSS */}
+  </div>
+);
+
+// The Main Podium Component
+const LeaderboardPodium = ({ teams }: { teams: Team[] }) => {
+  // Assuming teams are sorted and team[0] is 1st, team[1] is 2nd, etc.
+  const team1 = teams[0] || {};
+  const team2 = teams[1] || {};
+  const team3 = teams[2] || {};
+
+  return (
+    <div className="podium-wrapper">
+      {/* Row 1: Empty | 1st Place | Empty */}
+      <div className="podium-step filler top-left"></div>
+
+      {/* 1st Place (Spans 3 rows) */}
+      <PodiumStep team={team1} rank={1} className="rank-1" />
+
+      <div className="podium-step filler top-right"></div>
+
+      {/* Row 2/3 (Grid Area handles the 2nd and 3rd place steps spanning 2 rows) */}
+      <PodiumStep team={team2} rank={2} className="rank-2" />
+      {/* The middle cell for rows 2 and 3 is covered by the rank-1 component's grid-area */}
+      <PodiumStep team={team3} rank={3} className="rank-3" />
     </div>
   );
 };
@@ -106,13 +142,7 @@ const Leaderboard = () => {
         {error && <Alert variant="danger">{error}</Alert>}
 
         {/* ---------- PODIUM ---------- */}
-        {topTeams.length >= 3 && (
-          <div className="podium-wrapper">
-            <PodiumItem team={topTeams[1]} rank={2} />
-            <PodiumItem team={topTeams[0]} rank={1} />
-            <PodiumItem team={topTeams[2]} rank={3} />
-          </div>
-        )}
+        <LeaderboardPodium teams={topTeams} />
 
         {/* ---------- TABLE ---------- */}
         <div className="table-wrapper">
