@@ -299,6 +299,7 @@ const AdminDashboard = () => {
       <Table striped bordered hover responsive>
         <thead>
           <tr>
+            <th>S.No.</th>
             <th>Title</th>
             <th>Question</th>
             <th>Answer</th>
@@ -312,8 +313,9 @@ const AdminDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {markers.map((marker) => (
+          {markers.map((marker, index) => (
             <tr key={marker.id}>
+              <td>{index + 1}</td>
               <td>{marker.title}</td>
               <td>{marker.question}</td>
               <td>{marker.answer}</td>

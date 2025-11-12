@@ -37,9 +37,7 @@ const PodiumStep = ({
         />
         <div className="podium-rank">{rank}</div>
         <div className="podium-name">{team.teamName}</div>
-        <div className="podium-points">
-          {team.points?.toFixed(2) ?? "0.00"}
-        </div>
+        <div className="podium-points">{team.points?.toFixed(2) ?? "0.00"}</div>
       </div>
     )}
     {/* podium-bar is hidden in CSS */}
@@ -155,11 +153,7 @@ const Leaderboard = () => {
                 return (
                   <tr
                     key={team.teamId}
-                    className={
-                      globalRank <= 3
-                        ? `rank-${globalRank}`
-                        : ""
-                    }
+                    className={globalRank <= 3 ? `rank-${globalRank}` : ""}
                   >
                     <td>{globalRank}</td>
                     <td>
