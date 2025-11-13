@@ -77,9 +77,16 @@ const Leaderboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const teamsPerPage = 15;
+  // Refresh interval (seconds)
+  const REFRESH_INTERVAL = 30;
+  const [secondsLeft, setSecondsLeft] = useState<number>(REFRESH_INTERVAL);
 
   /* --------------------- fetch & sort --------------------- */
   useEffect(() => {
+    // interval ids (browser setInterval returns number)
+    let fetchIntervalId: number;
+    let countdownIntervalId: number;
+
     const fetchTeams = async () => {
       try {
         const allTeams = await getTeams();
@@ -87,9 +94,28 @@ const Leaderboard = () => {
         setTeams(sorted);
       } catch {
         setError("Failed to fetch teams.");
+      } finally {
+        // reset countdown whenever a fetch completes
+        setSecondsLeft(REFRESH_INTERVAL);
       }
     };
+
+    // Fetch immediately on mount
     fetchTeams();
+
+    // Set up interval to fetch every REFRESH_INTERVAL seconds
+    fetchIntervalId = window.setInterval(fetchTeams, REFRESH_INTERVAL * 1000);
+
+    // Countdown interval (updates every second)
+    countdownIntervalId = window.setInterval(() => {
+      setSecondsLeft((prev) => (prev > 0 ? prev - 1 : REFRESH_INTERVAL));
+    }, 1000);
+
+    // Cleanup intervals on component unmount
+    return () => {
+      clearInterval(fetchIntervalId);
+      clearInterval(countdownIntervalId);
+    };
   }, []);
 
   const topTeams = teams.slice(0, 3);
@@ -127,6 +153,10 @@ const Leaderboard = () => {
           <p className="subtitle">
             Track your team’s progress and see who is dominating the
             competition!
+            <br />
+            <small className="refreshing">
+              Refreshing in {secondsLeft} second{secondsLeft !== 1 ? "s" : ""}...
+            </small>
           </p>
         </header>
 
